@@ -1,0 +1,12 @@
+## 1. SCP command to copy files from one server to another
+
+$scp sc59605@ctoctxmwap3u:/tmp/checkout_20.3/* /tmp/check/
+$hostname
+ctoctxswap4u
+
+## 2. Finding links created in last 48 hrs.
+
+$cd ${required_dir}
+$find -maxdepth 1 -type l -mtime -2 -exec ls -lrt {} \;| awk '{print $9$10$11}'
+./cs_tx -> r_cstx_v5_228
+./tx_dr -> r_txdr_v5_81_2
