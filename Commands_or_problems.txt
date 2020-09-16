@@ -16,7 +16,19 @@ $find -maxdepth 1 -type l -mtime -2 -exec ls -lrt {} \;| awk '{print $9$10$11}'
 $df -kh /   ##used space for root. Showed used space 88% (-h: human readable form, -k: block size of 1 kb)
 
 ## 4. du command
-$du -sh /home/pctlness ##to check space used by file or directory (-s : summarized view). 
+$du -sh /home/pctlness ##to check space used by file or directory (-s : summarized view).
+
+
+## 5. Hostname command
+$hostname -s   ##short version of hostname
+
+## Recently RHEL upgraded from version 6 to version 7. So 'hostname' command in version 6 is equivalent to 'hostname -s' in version 7. This caused our scripts to update accordingly.
+
+
+
+## 6. Check RHEL version
+$hostnamectl
+$cat /etc/redhat-release
 
 
 
