@@ -50,5 +50,12 @@ done
 $chef -i 1-100 -n 1  #from 1 to 100, generates 1 rando number
 $chef -i 1-150 -n 2 #generated two random numbers from 1 to 150
 
+## 9. Deploy .war files on tomcat instances
 
-
+$ cd /opt/middleware/tomcat/instances
+$ for TOMCAT in `ls`;do
+	rm -rf $TOMCAT/webapps/{webapp1,webapp2,webapp3}
+	unzip -x /prodtx/gi5/gi/release/war/webapp1.war -d $TOMCAT/webapps/webapp1
+	unzip -x /prodtx/gi5/gi/release/war/webapp2.war -d $TOMCAT/webapps/webapp1
+	unzip -x /prodtx/gi5/gi/release/war/webapp3.war -d $TOMCAT/webapps/webapp1
+done;
