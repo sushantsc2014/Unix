@@ -59,3 +59,41 @@ $ for TOMCAT in `ls`;do
 	unzip -x /prodtx/gi5/gi/release/war/webapp2.war -d $TOMCAT/webapps/webapp1
 	unzip -x /prodtx/gi5/gi/release/war/webapp3.war -d $TOMCAT/webapps/webapp1
 done;
+
+
+## 10. Requirement
+
+######
+file name- hosts_access_log_00.txt, contenet of file given
+
+unicomp6.unicomp.net - - [01/Jul/1995:00:00:06 -0400] "GET /shuttle/countdown/ HTTP/1.0" 200 3985
+burger.letters.com - - [01/Jul/1995:00:00:11 -0400] "GET /shuttle/countdown/liftoff.html HTTP/1.0" 304 0
+burger.letters.com - - [01/Jul/1995:00:00:12 -0400] "GET /images/NASA-logosmall.gif HTTP/1.0" 304 0
+burger.letters.com - - [01/Jul/1995:00:00:12 -0400] "GET /shuttle/countdown/video/livevideo.gif HTTP/1.0" 200 0
+d104.aa.net - - [01/Jul/1995:00:00:13 -0400] "GET /shuttle/countdown/ HTTP/1.0" 200 3985
+unicomp6.unicomp.net - - [01/Jul/1995:00:00:14 -0400] "GET /shuttle/countdown/count.gif HTTP/1.0" 200 40310
+unicomp6.unicomp.net - - [01/Jul/1995:00:00:14 -0400] "GET /images/NASA-logosmall.gif HTTP/1.0" 200 786
+unicomp6.unicomp.net - - [01/Jul/1995:00:00:14 -0400] "GET /images/KSC-logosmall.gif HTTP/1.0" 200 1204
+d104.aa.net - - [01/Jul/1995:00:00:15 -0400] "GET /shuttle/countdown/count.gif HTTP/1.0" 200 40310
+d104.aa.net - - [01/Jul/1995:00:00:15 -0400] "GET /images/NASA-logosmall.gif HTTP/1.0" 200 786
+
+GET request for .gif files with http reqest response 200, all files should go in one other file. No duplicates.
+
+Expected o/p in other file:
+
+KSC-logosmall.gif
+NASA-logosmall.gif
+count.gif
+livevideo.gif
+
+
+[sushantsc2014@unix-box ~]$ grep GET hosts_access_log_00.txt|grep 200|grep gif|awk '{print $7}'|awk -F "/" '{print $NF}'|sort|uniq
+count.gif
+KSC-logosmall.gif
+livevideo.gif
+NASA-logosmall.gif
+
+
+
+
+
