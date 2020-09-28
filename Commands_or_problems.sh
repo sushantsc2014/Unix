@@ -93,7 +93,8 @@ KSC-logosmall.gif
 livevideo.gif
 NASA-logosmall.gif
 
+## 11. Find number of logical CPUs
 
-
-
-
+$nproc
+$lscpu #(=socket*core*threads)
+$cat /proc/cpuinfo|grep "model name"|wc -l
