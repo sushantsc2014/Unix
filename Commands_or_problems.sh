@@ -98,3 +98,14 @@ NASA-logosmall.gif
 $nproc
 $lscpu #(=socket*core*threads)
 $cat /proc/cpuinfo|grep "model name"|wc -l
+
+## 12. Use of aliasing
+
+##Need to check frequesting if files are movied or not on physical server in perticular location. Set aliases rather han hitting commands again and again
+
+$alias war="ls -lrt /prodtx/gi5/gi/release/war|tail -6"
+$alias db="ls -lrt /prodtx/gi5/gi/release/dbdata|tail -10"
+$alias bin="ls -lrt /prodtx/gi5/gi/release/bin|tail -10"
+$alias lib="ls -lrt /prodtx/gi5/gi/release/lib|tail -10"
+$alias  ## To list out aliases set
+$unalias war ## to remove entries from current users alias list 
