@@ -109,3 +109,8 @@ $alias bin="ls -lrt /prodtx/gi5/gi/release/bin|tail -10"
 $alias lib="ls -lrt /prodtx/gi5/gi/release/lib|tail -10"
 $alias  ## To list out aliases set
 $unalias war ## to remove entries from current users alias list 
+
+## 13. Mail uility in Unix
+$ echo "Mail body"|mailx -s "subject line" -a attachment.txt email@adress.com
+
+## there are others utilities as well like sendmail, mail etc
