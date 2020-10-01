@@ -114,3 +114,17 @@ $unalias war ## to remove entries from current users alias list
 $ echo "Mail body"|mailx -s "subject line" -a attachment.txt email@adress.com
 
 ## there are others utilities as well like sendmail, mail etc
+
+## 14. Information about system
+$uname -a ##all information
+$uname -n ##hostname
+$uname -v ##version of operating system
+$uname -o ##operating system
+$uname -s ##kernel
+
+## 15 Uptime command
+$uptime ##to check number of days server is up. In o/p--> current time, no of days server is up, no of users logged in, load avg for last 1, 5 and 15 minutes.
+
+##Same o/p as uptime  we can get as a part from following commands with additional information
+$top  ##this is for monitoring
+$w  ##currently logged in people
