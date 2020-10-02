@@ -125,6 +125,20 @@ $uname -s ##kernel
 ## 15 Uptime command
 $uptime ##to check number of days server is up. In o/p--> current time, no of days server is up, no of users logged in, load avg for last 1, 5 and 15 minutes.
 
-##Same o/p as uptime  we can get as a part from following commands with additional information
+##Same o/p as uptime  we can get as a part   from following commands with additional information
 $top  ##this is for monitoring
 $w  ##currently logged in people
+
+
+## 16 SFTP command (secure file transfer protocol)
+
+$hostname
+$ctoctxswap3p
+$sftp sc59605@ctoctxmwap3p
+sftp>cd /tmp/check
+sftp>put abc.txt
+sftp>get xyz.txt
+sftp>chmod 777 abc.txt
+sftp>mkdir trial_dir
+
+## SFTP command is used to copy file sfrom one server to other server. Difference between SCP and SFTP command is- we can only copy files with the help of SCP. With SFTP, we can copy files, and perform other operations like changing permission
