@@ -1,0 +1,45 @@
+Options for FIND command
+
+-mindepth : start searching from this level
+-maxdepth : search upto this level
+-type : file or directory or link or other type
+		f- file
+		d- directory
+		l- link
+-name : name of file/directory
+-not : negation (example:-not -name *.xyz)
+-i : case insensitive
+
+-size : by size of file
+			c- bytes
+			-30k,30k,+30k --> less than| equal to | greater than 30 kilo-bytes
+			-30M,30M,+30M --> less than| equal to | greater than 30 Mega-bytes
+			-30G,30G,+30G --> less than| equal to | greater than 30 Giga-bytes
+ 
+-mtime : Modified time in Days (+A- older than A days, -A- In last A days, A- on Ath day)
+-mmin : Modified time in minutes
+
+-ctime : Change time in days
+-cmin : Change time in minutes
+
+-atime : Access time in days
+-amin : Access time in minutes
+
+-user : user of file/directory
+-group : group of file/directory
+
+-perm : permission on the file (example: -perm 777)
+
+
+------------------------------------------
+Modified time VS Change time VS Access time
+
+When content of file is changed : Modified timestamp will get updated
+When permissions on file, user/group of file changes or content of file changed : Change timestamp will get updated
+When you see the content of file or suppose, fiel is accessed by other (like autosys to call script), you execute a .sh file : Access timestamp will get changed
+
+If you edit the file--> modified time and access time will changed
+If I change permissions or user/group--> Only change time will changed
+If I 'cat' the file or go in command mode of 'VI' or I execute .sh file--> Access time will get updated
+
+'touch' command will update all the three timestamp
