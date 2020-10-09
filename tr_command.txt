@@ -1,0 +1,52 @@
+'tr' (translate) command: tr [option] [set1] [set2]
+Options:
+	-c: complement of set1, exclude set1
+	-d: delete characters from set1
+	Hence, -dc : retain set1
+	-s: squeeze
+
+EXAMPLE:
+
+echo "susha nt"|tr " " "a"
+> sushant (replaced space with 'a')
+(sed 's/ //')
+
+echo "sush ant"|tr -d " "
+> sushant (deletes space)
+
+echo "sushant    here"|tr -s " " " "
+>sushant here (squeezes spacesto single space. Mutliple occurance to one)
+
+echo "Hi _____ there"|tr -s "_" "_"
+> Hi _ there
+
+echo "sushantsc2014@gmail.com"|tr -d '[0-9]'
+> sushantsc@gmail.com  (Deletes digits)
+
+echo "sushantsc2014@gmail.com"|tr -dc '[0-9]'
+> 2014 (complements deletion of digits i.e. retains digits)
+
+echo "sushantsc2014@gmail.com"|tr -d '[a-zA-Z]'
+> 2014
+
+echo "Hi there, I'm using whatsapp"|tr " " "\n"
+> Hi
+  there  (replaces space with new line character)
+  
+echo "Hi
+there,
+I'm
+using
+whatsapp"| tr "\n" " "
+> Hi there, I'm using whatsapp   (Repalces new line character wiht space)
+
+echo "hi there"|tr [a-z] [A-Z] OR tr [:lower:} [:upper:]
+> HI THERE  (lower letter to uppar)
+
+echo "Hie (there), hi there"|tr '()' '{}'
+> Hie {there}, hi there
+
+[:lower:]
+[:upper:]
+[:space:]
+[:digit:]
