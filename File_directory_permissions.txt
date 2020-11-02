@@ -1,0 +1,62 @@
+Files/directories are owned by User ID and Group ID, not by username and groupname.
+
+1) READ permission (r)
+	a. On file- allows user/processes to ready content of file. Can be viewed and copied.
+	b. On directory- file names can be listed in directory (only 'ls'  command. 'ls -l' won't work if directory have only read perission)
+	
+2) WRITE permission (w)
+	a. On file- content can be written in file and saved.
+	b. On directory- Files can be added, removed from directory. But it will also require 'execute' permisiion on directory
+	
+3) EXECUTE permission (x)
+	a. On file- file can be executed or run as process 
+	b. On directory- User can use 'cd' command, use directory in 'path', to get into directory.
+	
+
+* IMPORTANT- The permissions of all parent directories must be considered before considering the permissions on a specific file.
+
+$ls -l abc.txt
+
+-rwxrwxrwx abc.txt
+
+*****Symbilic method
+
+u: user, g: group, o: other, a: all
+r: read, w: write, x: execute
++: add, -: remove, =: set to
+
+chmod u+x abc.txt  --> add exceute permission for user
+chmod go+x abc.txt --> add execute permission for group and others
+chmod a+rx abc.txt --> add read, execute permission to all
+chmod u+x,g-x,o-rw abc.txt --> add x permisison to Uer, removes x permission from group, removes read, write permission from others
+chmod a-x --> removes execute permission from all
+chmod a=rw abc.txt  --> overwrites permisisons and set all permisions to read and write for all
+
+*****Numeric method
+
+4:read 2:write 1:execute
+7:rwx  6:rw- 5:r-x 4:r-- 3:-wx 2:-w- 1:--x 0:---
+
+chmod 755 abc.txt
+User:rwx Group:r-w Other:r-w
+
+chmod 754 abc.txt
+User:rwx Group:r-x others:r--
+
+
+********DEFAULT Permissions*******
+
+$umask
+
+this command will give you umask value. When you subtract this value from maximum allowable default permision, you get DEFAULT PERMISSIONS on file, directory.
+
+MAXIMUM DEFAULT PERMISSIONS
+ On directory- 777 (rwx rwx rwx)
+ On file- 666 (rw- rw- rw-)
+ 
+Example-
+$umask
+0022
+ 
+Default directory permission 777-022 : 755 (rwxr-xr-x)
+Default file permission 666-022 : 644 (rw-r--r--)
