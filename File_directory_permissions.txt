@@ -60,3 +60,105 @@ $umask
  
 Default directory permission 777-022 : 755 (rwxr-xr-x)
 Default file permission 666-022 : 644 (rw-r--r--)
+
+
+================= Special permissions==========
+1. SETUID (s) on user
+ When SETUID permission is set on executable file, when other user executes this file it is executed as owner is running.
+ 
+[sushantsc2014@unix-box ~]$ type passwd
+passwd is /usr/bin/passwd
+[sushantsc2014@unix-box ~]$ ls -lrt /usr/bin/passwd
+-rwsr-xr-x. 1 root root 30768 Nov  2  2015 /usr/bin/passwd
+
+'passwd' command is used to chnage password. And if you see, it has 's' permisison, so though owner is root, when you run this command, it is run as ROOT is running this command.
+
+To add special permission
+
+chmod u+s abc.txt
+chmod 4644 abc.txt 
+
+to remove special permission
+
+chmod 0755 abc.txt
+chmod u-s abc.txt
+
+----DEMO----
+
+1. '.sh' file is created by user 'sushantsc2014'. 'Others' have only read permission.
+[sushantsc2014@unix-box jackpot]$ ls -lrt /tmp/jackpot/special_perm.sh
+-rwx----r--. 1 sushantsc2014 sushantsc2014 15 Nov  3 07:21 /tmp/jackpot/special_perm.sh
+[sushantsc2014@unix-box jackpot]$ sh special_perm.sh
+Tue Nov  3 07:24:41 UTC 2020
+Hi
+
+2. Switched to user 'nibba' and tried to execute but permission denied.
+[sushantsc2014@unix-box jackpot]$ su - nibba
+Password: 
+[nibba@unix-box ~]$ id
+uid=502(nibba) gid=503(nibba) groups=503(nibba) context=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023
+[nibba@unix-box ~]$ sh /tmp/jackpot/special_perm.sh
+sh: /tmp/jackpot/special_perm.sh: Permission denied
+
+3. As a owner of file, 'sushantsc2014', set SETUID permission to file
+[sushantsc2014@unix-box jackpot]$ chmod u+s /tmp/jackpot/special_perm.sh
+[sushantsc2014@unix-box jackpot]$ ls -lrt /tmp/jackpot/special_perm.sh
+-rws---r--. 1 sushantsc2014 sushantsc2014 15 Nov  3 07:21 /tmp/jackpot/special_perm.sh
+
+4. Now try as user 'nibba' to execute file and it executes. (other user should at least have READ permission)
+[sushantsc2014@unix-box jackpot]$ su -l nibba
+Password:  
+[nibba@unix-box ~]$ sh /tmp/jackpot/special_perm.sh
+Tue Nov  3 07:31:52 UTC 2020
+Hi
+----------------------DEMO End---------------------
+
+2. SETGID (s) on group
+ Two forms, when we set SETGID permission on file and on directory
+ 
+ a. SETGID on file
+	simillar to setuid. Allows a user to run an executable file in a manner that provides them additional (temporary) group access. The system allows the user running the command to effectively belong to the group that owns the file
+	
+ b. SETGID on directory
+    When a directory has SETGID permission, any file created inside will have GROUP same as that of directory irrespective of user's primary group who creates file. Remember, files group will be users primary group. But SETGID on directory will not permit.
+	And directories created inside this directories will have SETGID permission automatically.
+	
+To add setgid permssion
+chmod g+s abc.txt/abc
+chmod 2777 abc.txt/abc
+	
+----DEMO-----
+1. As a user 'nibba' create a file insde /tmp/spec_perm directory. Now check owners of file. Group- nibba, same as primary group of user 'nibba'
+[nibba@unix-box spec_perm]$ touch abc.txt 
+[nibba@unix-box spec_perm]$ ls -lrt abc.txt
+-rw-rw-r--. 1 nibba nibba 0 Nov  3 07:54 abc.txt
+[nibba@unix-box spec_perm]$ id
+uid=502(nibba) gid=503(nibba) groups=503(nibba) context=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023
+[nibba@unix-box spec_perm]$ pwd
+/tmp/spec_perm
+[nibba@unix-box spec_perm]$ ls -ld /tmp/spec_perm/
+drwxrwxrwx. 2 sushantsc2014 sushantsc2014 4096 Nov  3 07:54 /tmp/spec_perm/
+[nibba@unix-box spec_perm]$ 
+
+2. As a directory owner 'sushatsc2014' I set SETGID permission in directory
+[sushantsc2014@unix-box jackpot]$ chmod g+s /tmp/spec_perm/
+[sushantsc2014@unix-box jackpot]$ ls -ld /tmp/spec_perm/
+drwxrwsrwx. 2 sushantsc2014 sushantsc2014 4096 Nov  3 07:54 /tmp/spec_perm/
+[sushantsc2014@unix-box jackpot]$ 
+
+3. Again as a 'nibba' user, I created xyz.txt file, now if you check, group owner is set to 'sushantsc2014', group owner same as that of directory '/tmp/spec_perm/'
+[sushantsc2014@unix-box jackpot]$ su - nibba
+Password:  
+[nibba@unix-box ~]$ cd /tmp/spec_perm/ 
+[nibba@unix-box spec_perm]$ touch xyz.txt
+[nibba@unix-box spec_perm]$ ls -lrt xyz.txt
+-rw-rw-r--. 1 nibba sushantsc2014 0 Nov  3 07:57 xyz.txt
+[nibba@unix-box spec_perm]$ 
+
+4. Directory created inside directory having SETGID permission, will also have SETGID permission set and group owned by group thats owns the setgid directory.
+[nibba@unix-box spec_perm]$ cd /tmp/spec_perm/
+[nibba@unix-box spec_perm]$ mkdir dir_by_nibba
+[nibba@unix-box spec_perm]$ ls -ld dir_by_nibba/
+drwxrwsr-x. 2 nibba sushantsc2014 4096 Nov  3 08:03 dir_by_nibba/
+
+-----------DEMO End-------------
