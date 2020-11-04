@@ -162,3 +162,23 @@ Password:
 drwxrwsr-x. 2 nibba sushantsc2014 4096 Nov  3 08:03 dir_by_nibba/
 
 -----------DEMO End-------------
+
+3. STICKY-BIT (t) on others
+ Thsi permission is given mostly on shared directories where every user has every permission. So any user can delete files of others. So sticky bit permission prevents this.
+Example is '/tmp/' direcotry. Every user have execute permission on directory, meaning they can create and delete files from directory. 
+
+[sushantsc2014@unix-box ~]$ ls -ld /tmp
+drwxrwxrwt. 6 root root 4096 Nov  4 05:53 /tmp
+
+ #1. create a file in /tmp directory by nibba user
+[nibba@unix-box tmp]$ touch nibba_file.txt
+[nibba@unix-box tmp]$ chmod 777 nibba_file.txt
+
+ #2. Tr to delete as another user
+[sushantsc2014@unix-box ~]$ cd /tmp
+[sushantsc2014@unix-box tmp]$ ls
+jackpot  nibba_file.txt  spec_perm  ssh-xiilxC1888
+[sushantsc2014@unix-box tmp]$ ls -l nibba_file.txt 
+-rwxrwxrwx. 1 nibba nibba 0 Nov  4 05:55 nibba_file.txt 
+[sushantsc2014@unix-box tmp]$ rm nibba_file.txt 
+rm: cannot remove `nibba_file.txt': Operation not permitted
