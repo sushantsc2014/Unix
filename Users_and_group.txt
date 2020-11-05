@@ -1,0 +1,52 @@
+#### Creating GROUPS ####
+
+We can add group entry manuually in '/etc/group' file OR use 'groupadd' command
+
+[sushantsc2014@unix-box ~]$ sudo groupadd -g 777 group_1
+[sushantsc2014@unix-box ~]$ grep group_1 /etc/group
+group_1:x:777:
+
+-- Option 'g' is not mandatory. If not specified, group ID will automatically created. If explicitaly specified, will create with mentioned group ID.
+
+#### Modifying GROUPS ####
+
+1. To change group name
+
+[sushantsc2014@unix-box ~]$ sudo groupmod -n group1 group_1
+[sushantsc2014@unix-box ~]$ grep group1 /etc/group
+group1:x:777:
+
+groupmod -n <new_name> <old_name>
+
+	Changing group name won't have any effect. As everything is owned by GROUP ID and USER ID, not by GROUP NAME and USER NAME.
+
+2. To chnage group ID
+
+I have one file, and it it group owned by GROUP1 (777)
+
+[sushantsc2014@unix-box ~]$ ls -lrt /tmp/jackpot/imp.txt 
+-rw-rw-r--. 1 sushantsc2014 group1 0 Nov  5 10:46 /tmp/jackpot/imp.txt
+
+Now I'll change GROUP ID for group GROUP1
+
+[sushantsc2014@unix-box ~]$ sudo groupmod -g 888 group1
+[sushantsc2014@unix-box ~]$ grep group1 /etc/group
+group1:x:888:
+
+
+[sushantsc2014@unix-box ~]$ ls -lrt /tmp/jackpot/imp.txt
+-rw-rw-r--. 1 sushantsc2014 777 0 Nov  5 10:46 /tmp/jackpot/imp.txt
+
+Now, when we changed GROUP ID, file imp.txt which was OWNED by 777 (GROUP1) , but we changed groupid of GROUP1 to 888. So file imp.txt is now owned by 777 group ID.
+
+3. To delete group
+
+[sushantsc2014@unix-box ~]$ groupdel group1
+-bash: /usr/sbin/groupdel: Permission denied
+[sushantsc2014@unix-box ~]$ sudo groupdel group1
+
+[sushantsc2014@unix-box ~]$ grep group1 /etc/group
+[sushantsc2014@unix-box ~]$ 
+
+
+#### Creating USERS ####
