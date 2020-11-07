@@ -50,3 +50,50 @@ Now, when we changed GROUP ID, file imp.txt which was OWNED by 777 (GROUP1) , bu
 
 
 #### Creating USERS ####
+
+User infirmation stored in 
+ 1. /etc/passwd : user account info
+ 2./etc/shadow : user password info, encrypted form
+ 
+ Default values while creating new user
+ 
+[sushantsc2014@unix-box ~]$ sudo useradd -D
+GROUP=100      --> values of primary group ID, if not mentioned explicitaly (User provate group is generally created, that is PRIMARY GROUP with same name as USER created)
+HOME=/home     --> User home directory created under /home. -b option for different home direcotry path
+INACTIVE=-1    --> Number of days after the password expires that the account is disabled.
+EXPIRE=        --> expiration date
+SHELL=/bin/bash  --> default shell when they login
+SKEL=/etc/skel
+CREATE_MAIL_SPOOL=yes  --> Mail facility enabled
+
+
+
+[sushantsc2014@unix-box ~]$ sudo cat /etc/default/useradd 
+#useradd defaults file
+GROUP=100
+HOME=/home
+INACTIVE=-1
+EXPIRE=
+SHELL=/bin/bash
+SKEL=/etc/skel
+CREATE_MAIL_SPOOL=yes
+
+[sushantsc2014@unix-box ~]$ sudo useradd -u 1009 -g users -G sales,research -c 'Jane Doe' jane
+
+-u --> USER ID defines
+-g --> Primary group for user
+-G --> User will be part of these groups
+-c --> comments
+
+
+[sushantsc2014@unix-box ~]$ sudo useradd -u 1009 -g users -G sales,research -c 'Jane Doe' jane 
+useradd: group 'sales' does not exist
+useradd: group 'research' does not exist
+  ### I had not created these groups hence error
+  
+  
+[sushantsc2014@unix-box ~]$ sudo useradd -u 1009 -g users -G sushantsc2014 -c 'Jacky Dones account' Jacky
+[sushantsc2014@unix-box ~]$ sudo grep Jacky /etc/passwd
+Jacky:x:1009:100:Jacky Dones account:/home/Jacky:/bin/bash
+
+<User name> : x : <UID> : <GID> : comments : <HOME DIRECTORY> : <DEFAULT SHELL>
