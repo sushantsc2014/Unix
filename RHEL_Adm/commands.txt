@@ -1,0 +1,3 @@
+
+lsblk  --> list disks available
+mount /dev/sdb /  --> this will mount disk sdb on '/'
