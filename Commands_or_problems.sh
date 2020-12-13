@@ -142,3 +142,7 @@ sftp>chmod 777 abc.txt
 sftp>mkdir trial_dir
 
 ## SFTP command is used to copy file sfrom one server to other server. Difference between SCP and SFTP command is- we can only copy files with the help of SCP. With SFTP, we can copy files, and perform other operations like changing permission
+
+## 17 Find IP adress of system (on both RHEL 6 and RHEL 7)
+$hostname -I
+$cat /etc/hosts
