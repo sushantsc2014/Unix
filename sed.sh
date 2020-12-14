@@ -39,9 +39,11 @@ sed '/chavare$/d' abc.txt ##deletes line ending with chavare
 
 #### '&' character-- represents content of pattern that was matched.
 
-sed 's/^[[:digit:]]/($)/' abc.txt   #### line starting with digit, puts digit in bracket
+sed 's/^[[:digit:]]/(&)/' abc.txt   #### line starting with digit, puts digit in bracket
 
- 
+### Command option to save changes in same file. As 'sed' will give o/p on screen, we want to save change in file itself
+
+sed -i 's/sushant/chavare/g' abc.txt    ## Option '-i' is used
 
 
 
