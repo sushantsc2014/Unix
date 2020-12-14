@@ -146,3 +146,12 @@ sftp>mkdir trial_dir
 ## 17 Find IP adress of system (on both RHEL 6 and RHEL 7)
 $hostname -I
 $cat /etc/hosts
+
+## 18 To check if server is up or not
+read server
+ping -c 2 $server &> out_put.txt  ## -c option will limit number of request sent.
+if [ $? -eq 0 ];then
+echo "Server $server is reachable"
+else
+echo "Server $server is down"
+fi
