@@ -45,5 +45,107 @@ sed 's/^[[:digit:]]/(&)/' abc.txt   #### line starting with digit, puts digit in
 
 sed -i 's/sushant/chavare/g' abc.txt    ## Option '-i' is used
 
+sed -i.bkp 's/sushant/chavare/g' abc.txt --> ## creates a backup file abc.txt.bkp and content of this file will be same as old file. abc.txt will have new pattern.
+
+sed 's/.$/5/g' sed.txt  ----> Last letter is replaced by 5
+sed 's/^.//' sed.txt  ----> removes first letter for each line (to remove commented lines  sed 's/^#//' abc.txt
 
 
+#######################
+
+# Append (a), Insert (i), replace (c)
+
+# Append (a) --- appends given line after specified line number or pattern or word matching line
+
+cat abc.txt
+This is line number 1
+This is line number 2
+This is line number 3
+This is line number 4
+This is line number 5
+This is line number 6
+This is line number 7
+
+sed '3 a Line appended' abc.txt
+This is line number 1
+This is line number 2
+This is line number 3
+Line appended
+This is line number 4
+This is line number 5
+This is line number 6
+This is line number 7
+
+sed '3 a "Line appended"' abc.txt
+This is line number 1
+This is line number 2
+This is line number 3
+"Line appended"
+This is line number 4
+This is line number 5
+This is line number 6
+This is line number 7
+
+sed '/six/ a "Line appended after 6th line"' abc.txt
+This is line number 1- first
+This is line number 2- second
+This is line number 3- third
+This is line number 4- fourth
+This is line number 5- fifth
+This is line number 6- six
+"Line appended after 6th line"
+This is line number 7- seven
+
+
+# Insert (i) --- add line before given line number or pattern
+
+sed '1 i "Line at very start"' abc.txt
+"Line at very start"
+This is line number 1- first
+This is line number 2- second
+This is line number 3- third
+This is line number 4- fourth
+This is line number 5- fifth
+This is line number 6- six
+This is line number 7- seven
+
+sed '4 i "line before 4th"' abc.txt
+This is line number 1- first
+This is line number 2- second
+This is line number 3- third
+"line before 4th"
+This is line number 4- fourth
+This is line number 5- fifth
+This is line number 6- six
+This is line number 7- seven
+
+
+sed '/Fourth/I i "line before 4th"' abc.txt  # I for case insensitive
+This is line number 1- first
+This is line number 2- second
+This is line number 3- third
+"line before 4th"
+This is line number 4- fourth
+This is line number 5- fifth
+This is line number 6- six
+This is line number 7- seven	
+
+# Replace/change (c) --- replaces given line, patern matching line with given line
+
+sed '3 c "Replacing third line with this"' abc.txt
+This is line number 1- first
+This is line number 2- second
+"Replacing third line with this"
+This is line number 4- fourth
+This is line number 5- fifth
+This is line number 6- six
+This is line number 7- seven
+
+sed '/third/ c "Replacing pattern matching third"' abc.txt
+This is line number 1- first
+This is line number 2- second
+"Replacing pattern matching third"
+This is line number 4- fourth
+This is line number 5- fifth
+This is line number 6- six
+This is line number 7- seven
