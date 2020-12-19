@@ -1,0 +1,85 @@
+101:Redmi:Mobile:50000
+102:HP:Laptop:60000
+103:Samsung:Mobile:30000
+104:Dell:Laptop:40000
+
+awk -F ":" '{print NF}' abc.txt   --> Gives number of fields by seperating with ":"
+
+awk -F ":" '{print NR}' abc.txt  --> Records, number of lines
+awk -F ":" '{print NR,$2}' abc.txt 
+1 Redmi
+2 HP
+3 Samsung
+4 Dell
+
+#1. To get required fields
+
+awk -F ":" '{print $1}' abc.txt  --> To get first fiels
+
+awk -F ":" '{print $1,$2}' abc.txt  OR  awk -F ":" '{print $1" "$2}' abc.txt   --> To get multiple fileds seperated wtih space
+
+awk -F ":" '{print $1" "$2}' abc.txt | tr " " "|"  --> this will get required fileds and 'tr' command will replace white space with delimiter "|"
+101|Redmi
+102|HP
+103|Samsung
+104|Dell
+
+	FS- Field seperator
+	OFS- Output field seperator
+
+awk 'BEGIN{FS=":"; OFS="/"} {print $1,$2}' abc.txt  --> replaces ':" with gives OFS "/". FS and OFS in BEGIN block
+101/Redmi
+102/HP
+103/Samsung
+104/Dell
+
+awk -F ":" 'BEGIN{OFS="##"}{print $1,$2}' abc.txt  ---> Mentioning only OFS in BEGIN block
+101##Redmi
+102##HP
+103##Samsung
+104##Dell
+
+
+awk -F ":" '{print $1"##"$2}' abc.txt
+101##Redmi
+102##HP
+103##Samsung
+104##Dell
+
+#2. To get sum of columns
+
+101:Redmi:Mobile:50000
+102:HP:Laptop:60000
+103:Samsung:Mobile:30000
+104:Dell:Laptop:40000
+
+awk -F ":" '{sum=sum+$4} END{print sum}' abc.txt   ---> Sums the 4th field
+180000
+
+awk -F ":" '{sum=sum+$4} {print sum}' abc.txt
+50000
+110000
+140000
+180000
+
+
+awk -F ":" '$3 == "Mobile" {sum=sum+$4} END{print sum}' abc.txt ---> where $3 is Mobile
+80000
+
+awk -F ":" '$3 == "Laptop" {sum=sum+$4} END{print sum}' abc.txt  ----> where $3 is Laptop
+100000
+
+awk -F ":" '{ myArr[$3]+=$4} END{for ( i in myArr) print i, myArr[i]}' abc.txt   --> myArr is defined with index of 3rd column and valuewill be 4th column (it will add)
+Mobile 80000
+Laptop 100000
+
+
+awk -F ":" '{ count[$3]++;myArr[$3]+=$4} END{for ( i in count) print count[i],i,myArr[i]}' abc.txt
+2 Mobile 80000
+2 Laptop 100000
+
+
+
+awk -f abc.awk abc.txt    ---> -f option for program file, we can write AWK program in file and feed
+[sushantsc2014@unix-box AWK]$ cat abc.awk
+BEGIN{FS=":"}{count[$3]++;myArr[$3]+=$4} END{for ( i in count) print count[i],i,myArr[i]}
