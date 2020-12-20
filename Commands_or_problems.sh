@@ -155,3 +155,36 @@ echo "Server $server is reachable"
 else
 echo "Server $server is down"
 fi
+
+## 19 Check LEAP YEAR
+
+'''
+1. Year should be divisible by 4
+	if YES, go to next step
+	if NO, not a leap year
+2. Year is divisible by 100
+	if YES, check next step
+	if NO, leap year
+3. Year is divisible by 400
+	If YES, leap year
+	if NO, not a leap year
+'''
+
+#! /bin/bash
+echo "Please enter year (yyyy):"
+read year
+
+if [[ %((year % 4)) -eq 0 ]];then
+	if [[ $((year % 100)) -eq 0 ]];then
+		if [[ $((year % 400)) -eq 0 ]];then
+			echo "LEAP YEAR"
+		else
+			echo "NOT A LEAP YEAR"
+		fi
+	else
+		echo "LEAP YEAR"
+	fi
+		
+else
+	echo "NOT A LEAP YEAR"
+fi
