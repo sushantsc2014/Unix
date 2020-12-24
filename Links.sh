@@ -64,6 +64,9 @@ drwxrwxr-x. 2 sushantsc2014 sushantsc2014 4096 Oct 23 13:36 dir2
 lrwxrwxrwx. 1 sushantsc2014 sushantsc2014   25 Oct 23 13:44 soft_link_xyz -> /tmp/jackpot/dir2/xyz.txt
 [sushantsc2014@unix-box jackpot]$ 
 
+### Another way of creating soft link ###
+
+cp -s /tmp/jackpot/file_1.txt soft_link_name   ## this will create a soft is in present direcotry. This command can only br used to create soft link in present directory. CP -s
 
 #a. Both original file and soft link file will have different inode numbers
 [sushantsc2014@unix-box jackpot]$ ls -i /tmp/jackpot/dir2/xyz.txt
