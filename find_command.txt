@@ -43,3 +43,65 @@ If I change permissions or user/group--> Only change time will changed
 If I 'cat' the file or go in command mode of 'VI' or I execute .sh file--> Access time will get updated
 
 'touch' command will update all the three timestamp
+
+--------------
+
+'stat' command will give you details of file including permissions, inode number, timestamps etc
+
+[sunita_chavare2020@unix-box-1 ~]$ stat TEST/
+  File: ‘TEST/’
+  Size: 36              Blocks: 0          IO Block: 4096   directory
+Device: 802h/2050d      Inode: 51149863    Links: 2
+Access: (0777/drwxrwxrwx)  Uid: ( 1000/sunita_chavare2020)   Gid: ( 1001/sunita_chavare2020)
+Access: 2020-12-27 16:06:23.049655740 +0000
+Modify: 2020-12-25 18:11:34.441955303 +0000
+Change: 2020-12-25 18:11:34.441955303 +0000
+
+-------
+
+[sunita_chavare2020@unix-box-1 ~]$ stat xyz.txt
+  File: ‘xyz.txt’
+  Size: 31              Blocks: 8          IO Block: 4096   regular file
+Device: 802h/2050d      Inode: 51149941    Links: 1
+Access: (0777/-rwxrwxrwx)  Uid: ( 1000/sunita_chavare2020)   Gid: ( 1001/sunita_chavare2020)
+Context: unconfined_u:object_r:user_home_t:s0
+Access: 2020-12-25 18:13:53.951409924 +0000
+Modify: 2020-12-25 18:13:49.389134201 +0000
+Change: 2020-12-25 18:13:49.389134201 +0000
+
+touch -a xyz.txt   ---> updates ACCESS TIME and CHANGE TIME
+
+[sunita_chavare2020@unix-box-1 ~]$ stat xyz.txt
+  File: ‘xyz.txt’
+  Size: 31              Blocks: 8          IO Block: 4096   regular file
+Device: 802h/2050d      Inode: 51149941    Links: 1
+Access: (0777/-rwxrwxrwx)  Uid: ( 1000/sunita_chavare2020)   Gid: ( 1001/sunita_chavare2020)
+Access: 2020-12-27 16:33:14.703439830 +0000
+Modify: 2020-12-25 18:13:49.389134201 +0000
+Change: 2020-12-27 16:33:14.703439830 +0000
+
+--------------------
+
+touch -m xyz.txt   ---> updates MODIFIED TIME and CHANGE TIME
+
+[sunita_chavare2020@unix-box-1 ~]$ touch -m xyz.txt
+[sunita_chavare2020@unix-box-1 ~]$ 
+[sunita_chavare2020@unix-box-1 ~]$ 
+[sunita_chavare2020@unix-box-1 ~]$ stat xyz.txt
+  File: ‘xyz.txt’
+  Size: 31              Blocks: 8          IO Block: 4096   regular file
+Device: 802h/2050d      Inode: 51149941    Links: 1
+Access: (0777/-rwxrwxrwx)  Uid: ( 1000/sunita_chavare2020)   Gid: ( 1001/sunita_chavare2020)
+Context: unconfined_u:object_r:user_home_t:s0
+Access: 2020-12-27 16:33:14.703439830 +0000
+Modify: 2020-12-27 16:37:00.188190338 +0000
+Change: 2020-12-27 16:37:00.188190338 +0000
+
+------------------------------
+
+touch -d YYYYMMDD <file_name>  --> creates file with give date
+
+[sunita_chavare2020@unix-box-1 ~]$ touch -d 20200620 new_file_touch.txt
+[sunita_chavare2020@unix-box-1 ~]$ ls -lrt
+total 8
+-rw-rw-r--. 1 sunita_chavare2020 sunita_chavare2020  0 Jun 20  2020 new_file_touch.txt
