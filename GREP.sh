@@ -41,7 +41,7 @@ grep -c sushant abc.txt
 2
 
 ###To print all occurances
-grep -o sushant abc.txt|wc -learner
+grep -o sushant abc.txt|wc -l
 3
 
 ### Blank line and its count

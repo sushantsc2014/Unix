@@ -16,6 +16,10 @@ drwxrwxr-x. 2 sushantsc2014 sushantsc2014 4096 Oct 23 13:22 dir2
 [sushantsc2014@unix-box jackpot]$ cat hard_link_xyz
 Hi this is file in dir2
 
+### Another way of creating hard link ###
+
+cp -l /tmp/jackpot/file_1.txt soft_link_name   ## this will create a soft is in present direcotry. This command can only br used to create soft link in present directory. CP -s
+
 #b. Both file and hard link will have same inode numbers
 [sushantsc2014@unix-box jackpot]$ ls -i /tmp/jackpot/dir2/xyz.txt 
 262170 /tmp/jackpot/dir2/xyz.txt
