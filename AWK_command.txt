@@ -83,3 +83,26 @@ awk -F ":" '{ count[$3]++;myArr[$3]+=$4} END{for ( i in count) print count[i],i,
 awk -f abc.awk abc.txt    ---> -f option for program file, we can write AWK program in file and feed
 [sushantsc2014@unix-box AWK]$ cat abc.awk
 BEGIN{FS=":"}{count[$3]++;myArr[$3]+=$4} END{for ( i in count) print count[i],i,myArr[i]}
+
+-----------------------------------------------------------------
+
+[sunita_chavare2020@unix-box-1 ~]$ cat try.txt
+Samsung Mobile 34000
+LG Fridge 13000
+Moto Mobile 15000
+Usha Fan 3000
+Samsung Fridge 15000
+
+[sunita_chavare2020@unix-box-1 ~]$ awk '{count[$2]++;amount[$2]+=$3} END{for (i in count) print count[i],i,amount[i]}' try.txt
+2 Fridge 28000
+2 Mobile 49000
+1 Fan 3000
+
+[sunita_chavare2020@unix-box-1 ~]$ awk '{count[$2]++;amount[$2]+=$3} BEGIN{print "Count\tCategory\tAmount"} END{for (i in count) print count[i]"\t"i"\t\t"amount[i]}' try.txt
+Count   Category        Amount
+2       Fridge          28000
+2       Mobile          49000
+1       Fan             3000
+
+[sunita_chavare2020@unix-box-1 ~]$ awk '{amount[$2]+=$3} END{print amount["Mobile"]}' try.txt   ##### Only for mobile products
+49000
