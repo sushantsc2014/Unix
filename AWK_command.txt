@@ -106,3 +106,49 @@ Count   Category        Amount
 
 [sunita_chavare2020@unix-box-1 ~]$ awk '{amount[$2]+=$3} END{print amount["Mobile"]}' try.txt   ##### Only for mobile products
 49000
+
+******************************************************************
+
+Sample file- awk.txt
+
+Sushant Math 	95
+Rahul 	Biology 68
+Sushant Physics 80
+Raj 	Math 	89
+Rahul 	Math 	75
+Sushant Biology 60
+Rahul 	Physics 67
+Raj 	Biology 82
+Raj 	Physics 76
+
+Q1. Print sum for student Sushant
+
+awk '{sum[$1]+=$3} END{print "Sushant",sum["Sushant"]}' awk.txt
+Sushant 235
+
+Q2. Print sum for all students
+
+awk '{sum[$1]+=$3} END{for (i in sum) print i"\t"sum[i]}' awk.txt
+Rahul   210
+Raj     247
+Sushant 235
+
+Q3. Find average marks for each student
+
+awk '{count[$1]++;sum[$1]+=$3} BEGIN{print "No.of.Subjects\tNameOfStudent\tAverageMarks"} END{for (i in sum) print count[i]"\t\t"i"\t\t"sum[i] / count[i]}' awk.txt
+No.of.Subjects  NameOfStudent   AverageMarks
+3               Rahul           70
+3               Raj             82.3333
+3               Sushant         78.3333
+
+awk -f command.awk awk.txt
+
+cat command.awk 
+{count[$1]++;sum[$1]+=$3} BEGIN{print "No.of.Subjects\tNameOfStudent\tAverageMarks"} END{for (i in sum) print count[i]"\t\t"i"\t\t"sum[i] / count[i]}
+
+Q4. Average marks scored for each subject
+
+awk '{count[$2]++;sum[$2]+=$3} END{for (i in count) print i"\t"sum[i] / 3}' awk.txt
+Biology 70
+Math    86.3333
+Physics 74.3333
