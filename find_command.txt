@@ -105,3 +105,9 @@ touch -d YYYYMMDD <file_name>  --> creates file with give date
 [sunita_chavare2020@unix-box-1 ~]$ ls -lrt
 total 8
 -rw-rw-r--. 1 sunita_chavare2020 sunita_chavare2020  0 Jun 20  2020 new_file_touch.txt
+
+-------------------------------
+
+To delete files
+
+find . -type f -name "*log" -delete   ##-delete option
